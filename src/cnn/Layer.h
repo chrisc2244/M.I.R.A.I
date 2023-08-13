@@ -17,6 +17,10 @@ public:
 
 	inline const char* getId() const { return m_Id.c_str(); }
 
+	double static reLU();
+	double static sigmoid();
+	
+	
 protected:
 	bool m_isDone; // Flag for whether or not the layer has finished processing
 

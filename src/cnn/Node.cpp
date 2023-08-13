@@ -5,12 +5,12 @@
 
 
 Node::Node()
-	: m_filter(nullptr), m_bias(0), m_processedResult(0), m_Outputs(nullptr)
+	: m_filter(nullptr), m_bias(0), m_processedResult(0), m_Outputs(nullptr), m_CombinedOutput(nullptr)
 {
 }
 
 Node::Node(Matrix* filter, int bias = 0)
-	: m_processedResult(0), m_Outputs(nullptr)
+	: m_processedResult(0), m_Outputs(nullptr), m_CombinedOutput(nullptr)
 {
 	m_filter = filter;
 	m_bias = bias;

@@ -4,9 +4,9 @@
 #include "Matrix.h"
 #include "../utils/Log.h"
 
-ConvLayer::ConvLayer(std::string id)
+ConvLayer::ConvLayer(std::string id, std::string activation_type)
 	: m_numberOfNodesInLayer(0), m_currentWindowCol(0), m_currentWindowRow(0), m_inputMatrix(nullptr), m_isDone(false), Layer(id),
-	  m_currentTensor(0), m_inputMatrices(nullptr), m_inputTensor(nullptr), m_outputTensor(nullptr)
+	  m_currentTensor(0), m_inputMatrices(nullptr), m_inputTensor(nullptr), m_outputTensor(nullptr), m_activationType(activation_type)
 {
 
 };
@@ -52,9 +52,38 @@ void ConvLayer::backwardPropagate()
 
 }
 
-void ConvLayer::applyActivationFunction()
+//if value is less than 0, take 0. if value greater than 0, take that value. 
+double ConvLayer::reLU(double value)
 {
+	return std::max(0.0, value);
+}
 
+//fast sigmoid very close approximation. 24.1ns per calculation down to 5.5ns
+//takes values from (-oo, oo) and returns them between (-1, 1)
+double ConvLayer::sigmoid(double value)
+{
+	return value / (1 + abs(value));
+}
+
+//iterates through a matrix and reassigns each index with the new activated value
+//if no function specifies, logs an error.
+void ConvLayer::applyActivationFunction(Matrix* matrixToActivate, std::string& functionType)
+{
+	if (functionType == "ReLU" || functionType == "RELU" || functionType == "relu")
+	{
+		for (uint32_t i = 0; i < matrixToActivate->getSize(); i++)
+		{
+			(*matrixToActivate)[i] = reLU((*matrixToActivate)[i]);
+		}
+	} else if (functionType == "Sigmoid" || functionType == "sigmoid")
+	{
+		for (uint32_t i = 0; i < matrixToActivate->getSize(); i++)
+		{
+			(*matrixToActivate)[i] = sigmoid((*matrixToActivate)[i]);
+		}
+	} else if (functionType != "none"){
+		MIR::Log::writeEr("applyActivationFunction()", "Activation function not specified.");
+	}
 }
 
 void ConvLayer::setNumNodes(uint8_t size)
@@ -80,6 +109,9 @@ void ConvLayer::finishUp()
 	for (Node& node : m_Nodes)
 	{
 		node.combineOutputs();
+
+		// Apply Activation Function
+		applyActivationFunction(node.getOutput(), m_activationType);
 		m_outputTensor->addElement(node.getOutput());
 	}
 	MIR::Log::writefInfo("Layer::convolve()", "Layer \"%s\" finished processing...", m_Id.c_str());

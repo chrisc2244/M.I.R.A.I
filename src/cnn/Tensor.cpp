@@ -1,5 +1,10 @@
 #include "Tensor.h"
 
+Tensor::Tensor()
+	: m_NumElements(0)
+{
+}
+
 Tensor::Tensor(uint8_t size)
 	: m_NumElements(size)
 {

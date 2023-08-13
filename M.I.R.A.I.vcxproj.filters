@@ -84,6 +84,9 @@
     <ClCompile Include="src\cnn\Tensor.cpp">
       <Filter>Source Files\cnn</Filter>
     </ClCompile>
+    <ClCompile Include="src\cnn\MaxPoolLayer.cpp">
+      <Filter>Source Files\cnn</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files\cnn</Filter>
     </ClInclude>
     <ClInclude Include="src\cnn\TensorPtrs.h">
+      <Filter>Header Files\cnn</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cnn\MaxPoolLayer.h">
       <Filter>Header Files\cnn</Filter>
     </ClInclude>
   </ItemGroup>

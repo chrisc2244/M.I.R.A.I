@@ -23,6 +23,7 @@
     <ClCompile Include="src\cnn\ConvLayer.cpp" />
     <ClCompile Include="src\cnn\Layer.cpp" />
     <ClCompile Include="src\cnn\Matrix.cpp" />
+    <ClCompile Include="src\cnn\MaxPoolLayer.cpp" />
     <ClCompile Include="src\cnn\Network.cpp" />
     <ClCompile Include="src\cnn\Node.cpp" />
     <ClCompile Include="src\cnn\Tensor.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="src\cnn\ConvLayer.h" />
     <ClInclude Include="src\cnn\Layer.h" />
     <ClInclude Include="src\cnn\Matrix.h" />
+    <ClInclude Include="src\cnn\MaxPoolLayer.h" />
     <ClInclude Include="src\cnn\Network.h" />
     <ClInclude Include="src\cnn\Node.h" />
     <ClInclude Include="src\cnn\Tensor.h" />

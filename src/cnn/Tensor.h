@@ -5,6 +5,7 @@
 class Tensor
 {
 public:
+	Tensor();
 	Tensor(uint8_t size);
 	void addElement(const Matrix& m);
 	void setElement(uint8_t index, const Matrix& m);

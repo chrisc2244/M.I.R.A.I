@@ -8,7 +8,7 @@ class ConvLayer : virtual public Layer
 {
 public:
 
-	ConvLayer(std::string id);
+	ConvLayer(std::string id, std::string activation_type = "none");
 
 	~ConvLayer();
 
@@ -26,8 +26,11 @@ public:
 	//none of this block implemented yet
 	void forwardPropagate();
 	void backwardPropagate();
-	void applyActivationFunction();
 
+	//activation function things
+	double static reLU(double value);
+	double static sigmoid(double value);
+	void static applyActivationFunction(Matrix* matrixToActivate, std::string& functionType);
 
 	// Set Initial Vector size
 	void setNumNodes(uint8_t size);
@@ -35,6 +38,8 @@ public:
 	// Add Node
 	void addNode(Matrix* filter, int bias = 0);
 
+
+	// Combines all the node's outputs into a single tensor of ptrs -> m_outputTensor
 	void finishUp();
 
 	// Returns trus if layer is done processing
@@ -62,6 +67,8 @@ private:
 	Matrix m_window; //? This will be the window for the entire layer to give a pointer to for each node JC.
 
 	bool m_isDone; // Flag for whether or not the layer has finished processing
+
+	std::string m_activationType;
 
 	void setWindowSize(uint8_t windowCols, uint8_t windowRows);
 };

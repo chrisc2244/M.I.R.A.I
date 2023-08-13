@@ -34,6 +34,7 @@ public:
 
 	inline Matrix* getOutput() const { return m_CombinedOutput; }
 
+
 private:
 
 	Matrix* m_filter; // Put this on the heap, give ownership to node
